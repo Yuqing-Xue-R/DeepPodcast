@@ -1,0 +1,5 @@
+{
+  "name": "Nobody Knows Podcast Analytics",
+  "description": "An interactive data visualization tool for Meng Yan's 'Nobody Knows' podcast, featuring stacked histograms to analyze play counts and comment distributions by episode type and talk style.",
+  "requestFramePermissions": []
+}
