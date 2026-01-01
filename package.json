@@ -1,4 +1,3 @@
-
 {
   "name": "nobody-knows-analytics",
   "private": true,
@@ -10,13 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "clsx": "latest",
+    "framer-motion": "latest",
+    "lucide-react": "^0.562.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "recharts": "^2.12.0",
-    "lucide-react": "^0.344.0",
-    "clsx": "latest",
-    "tailwind-merge": "latest",
-    "framer-motion": "latest"
+    "tailwind-merge": "latest"
   },
   "devDependencies": {
     "@types/react": "^19.2.3",
