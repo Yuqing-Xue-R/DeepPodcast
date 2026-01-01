@@ -29,13 +29,13 @@ import {
   HistogramDataPoint 
 } from './types';
 
-// 覆盖默认颜色，采用更具质感的高级色盘
+// --- 核心修改点：纽约客纸媒质感色盘 ---
 const MODERN_PALETTE: Record<string, string> = {
-  none: '#cbd5e1',      // Slate 300
-  'Solo': '#1e293b',    // Slate 800
-  'Guest': '#818cf8',   // Indigo 400
-  'Invest': '#059669',  // Emerald 600
-  'General': '#fbbf24', // Amber 400
+  none: '#262626',      // 深炭黑油墨感 (纽约客标准视觉色)
+  'Solo': '#1e293b',    
+  'Guest': '#818cf8',   
+  'Invest': '#059669',  
+  'General': '#fbbf24', 
 };
 
 /**
@@ -62,7 +62,7 @@ const generateHistogramData = (
     const binMax = binMin + bucketSize;
     
     const bin: any = {
-      binLabel: `${binMin.toFixed(1)}-${binMax.toFixed(1)}`,
+      binLabel: `${binMin.toFixed(0)}-${binMax.toFixed(0)}`,
       min: binMin,
       max: binMax,
       totalCount: 0,
@@ -215,6 +215,11 @@ export default function App() {
     return generateHistogramData(fullData, c1Metric, c1Category, c1BucketSize);
   }, [fullData, c1Metric, c1Category, c1BucketSize]);
 
+  const adaptiveBarSize = useMemo(() => {
+    const count = c1Data.length;
+    return Math.max(12, Math.min(60, 800 / (count || 1)));
+  }, [c1Data]);
+
   const filteredBubbleData = useMemo(() => {
     if (!bubbleFilter) return fullData;
     return fullData.filter(d => 
@@ -258,7 +263,6 @@ export default function App() {
           
           <div className="flex flex-col gap-8 mb-10 bg-slate-50/50 p-8 rounded-[2rem] border border-slate-100">
             <div className="flex flex-wrap items-start gap-12">
-              {/* Metric Selector */}
               <div className="space-y-3">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-mono">01. Base Metric</label>
                 <div className="flex gap-2">
@@ -273,7 +277,6 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Talk Style Selector */}
               <div className="space-y-3 border-l border-slate-200 pl-10">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-mono">02. Talk Style</label>
                 <div className="flex gap-2">
@@ -291,7 +294,6 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Content Category Selector */}
               <div className="space-y-3 border-l border-slate-200 pl-10">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-mono">03. Episode Type</label>
                 <div className="flex gap-2">
@@ -305,12 +307,11 @@ export default function App() {
               </div>
             </div>
 
-            {/* Slider Controls */}
             <div className="space-y-4 pt-6 border-t border-slate-100">
               <div className="flex justify-between items-center">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest font-mono italic underline decoration-slate-200 underline-offset-4">Resolution Adjuster</label>
                 <span className="text-slate-900 font-mono font-black text-xs px-3 py-1 bg-white rounded-lg shadow-sm border border-slate-100">
-                   Step: {c1BucketSize} {c1Metric === 'playCount' ? '10k' : 'Comments'}
+                   Range Width: {c1BucketSize} ({c1Metric === 'playCount' ? '10k units' : 'comments'} per bar)
                 </span>
               </div>
               <input 
@@ -350,9 +351,9 @@ export default function App() {
                     dataKey={lvl} 
                     stackId="a" 
                     fill={c1Category === 'none' ? MODERN_PALETTE.none : MODERN_PALETTE[lvl]} 
-                    radius={[6, 6, 6, 6]} // 每一个分段都是独立的圆角
-                    barSize={42} 
-                    stroke="#ffffff" // 制造缝隙感的关键
+                    radius={[6, 6, 6, 6]} 
+                    barSize={adaptiveBarSize} 
+                    stroke="#ffffff" 
                     strokeWidth={2}
                     isAnimationActive={true}
                     animationBegin={index * 150}
