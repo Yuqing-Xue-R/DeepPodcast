@@ -41,7 +41,7 @@ export const PODCAST_DATA: PodcastEpisode[] = [
   { id: "E38", title: "他们落水了", episodeType: "General", talkType: "Guest", playCount: 38.5, commentCount: 2102 },
   { id: "E39", title: "创作过于重要", episodeType: "General", talkType: "Guest", playCount: 32.7, commentCount: 1690 },
   { id: "E40", title: "够与多", episodeType: "General", talkType: "Solo", playCount: 57.4, commentCount: 2829 },
-  { id: "E41", title: "对话阿娇", episodeType: "Celebrity", talkType: "Guest", playCount: 59.7, commentCount: 4743 },
+  { id: "E41", title: "对话阿娇", episodeType: "General", talkType: "Guest", playCount: 59.7, commentCount: 4743 },
   { id: "E42", title: "沉默的主角", episodeType: "General", talkType: "Guest", playCount: 53.9, commentCount: 2391 },
   { id: "E43", title: "没有更好的生活", episodeType: "General", talkType: "Guest", playCount: 17.1, commentCount: 1298 }
 ];
